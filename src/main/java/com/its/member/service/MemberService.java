@@ -6,6 +6,8 @@ import com.its.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,12 +44,23 @@ public class MemberService {
     public MemberDTO findById(Long id) {
         Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(id);
         if(optionalMemberEntity.isPresent()){
-            // return MemberDTO.toMemberDTO(optionalMemberEntity.get());
+            // return MemberDTO.toMemberDTO(optionalMemberEntity.get()); 한줄처리
             MemberEntity memberEntity = optionalMemberEntity.get();
             MemberDTO memberDTO = MemberDTO.toMemberDTO(memberEntity);
             return memberDTO;
         }else {
             return null;
         }
+    }
+
+    public List<MemberDTO> findAll() {
+        List<MemberEntity> memberEntityList = memberRepository.findAll();
+        List<MemberDTO> memberDTOList = new ArrayList<>();
+        for (MemberEntity member: memberEntityList){
+//            MemberDTO memberDTO = MemberDTO.toMemberDTO(member);
+//            memberDTOList.add(memberDTO);
+            memberDTOList.add(MemberDTO.toMemberDTO(member)); // 한줄처리
+        }
+        return memberDTOList;
     }
 }

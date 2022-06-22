@@ -10,6 +10,8 @@ import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 
+import java.util.stream.IntStream;
+
 import static org.assertj.core.api.Assertions.*;
 
 
@@ -18,8 +20,8 @@ public class MemberTest {
     @Autowired
     private MemberService memberService;
 
-    public MemberDTO newMember(){
-        MemberDTO member = new MemberDTO("테스트용이메일","테스트용비밀번호","테스트용이름",20,"테스트용폰번호");
+    public MemberDTO newMember(int i){
+        MemberDTO member = new MemberDTO("테스트용이메일"+i,"테스트용비밀번호"+i,"테스트용이름"+i,20+i,"테스트용폰번호"+i);
                 return member;
     }
 
@@ -28,9 +30,9 @@ public class MemberTest {
     @Rollback
     @DisplayName("회원가입 테스트")
     public void setMemberService(){
-        Long saveId = memberService.save(newMember());
+        Long saveId = memberService.save(newMember(1));
         MemberDTO memberDTO = memberService.findById(saveId);
-        assertThat(newMember().getMemberEmail()).isEqualTo(memberDTO.getMemberEmail());
+        assertThat(newMember(1).getMemberEmail()).isEqualTo(memberDTO.getMemberEmail());
     }
 
     @Test
@@ -52,5 +54,13 @@ public class MemberTest {
         MemberDTO loginResult = memberService.login(loginMemberDTO);
         //로그인 결과가 not null 이면 테스트 통과
         assertThat(loginResult).isNotNull();
+    }
+
+    @Test
+    @DisplayName("회원 데이터 저장")
+    public void memberSave(){
+        IntStream.rangeClosed(1,20).forEach(i ->{
+            memberService.save(newMember(i));
+        });
     }
 }
