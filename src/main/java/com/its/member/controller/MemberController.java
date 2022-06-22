@@ -1,8 +1,12 @@
 package com.its.member.controller;
 
+import com.its.member.dto.MemberDTO;
 import com.its.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -10,4 +14,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
+
+    @GetMapping("/save-form") //회원가입 화면 요청
+    public String saveForm(){
+        return "/memberPages/save";
+    }
+    @PostMapping("/save") //회원가입 처리
+    public String save(@ModelAttribute MemberDTO memberDTO){
+        memberService.save(memberDTO);
+        return "memberPages/login";
+    }
+    @PostMapping("/login") //로그인 처리
+    public String login(@ModelAttribute MemberDTO memberDTO){
+        MemberDTO loginResult = memberService.login(memberDTO);
+        if (loginResult != null){
+            return "memberPages/main";
+        }else {
+            return "memberPages/login";
+        }
+    }
 }

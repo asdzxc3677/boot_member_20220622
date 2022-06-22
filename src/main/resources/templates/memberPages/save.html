@@ -5,10 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-<h2>회원가입페이지</h2>
-<form action="/member/save" method="post">
-    계정:
-
+<h2>회원가입페이지 save.html</h2>
+<form action="/member/save" method="post"> <!-- id= css 줄때 필요 그외엔 필요가 없다.  -->
+    이메일:<input type="text" onblur="duplicateCheck()" id="memberEmail" name="memberEmail" placeholder="아이디"> <br>
+    <p id ="dup-check-result"></p> <!-- 아이디중복체크 -->
+    비밀:<input type="password" id="memberPassword" name="memberPassword" placeholder="번호"> <br>
+    이름:<input type="text" id="memberName" name="memberName" placeholder="이름"> <br>
+    나이: <input type="text" id="memberAge" name="memberAge" placeholder="나이"><br>
+    폰번호: <input type="text" id="memberPhone" name="memberPhone" placeholder="폰번호"> <br>
+    <input type="submit" value="회원가입">
 </form>
 </body>
 </html>

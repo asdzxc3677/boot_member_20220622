@@ -1,5 +1,6 @@
 package com.its.member.dto;
 
+import com.its.member.entity.MemberEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +15,24 @@ public class MemberDTO {
     private String memberName;
     private int memberAge;
     private String memberPhone;
+
+    public MemberDTO(String memberEmail, String memberPassword, String memberName, int memberAge, String memberPhone) {
+        this.memberEmail = memberEmail;
+        this.memberPassword = memberPassword;
+        this.memberName = memberName;
+        this.memberAge = memberAge;
+        this.memberPhone = memberPhone;
+    }
+
+    public static MemberDTO toMemberDTO(MemberEntity memberEntity){
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setMemberEmail(memberDTO.getMemberEmail());
+        memberDTO.setMemberPassword(memberEntity.getMemberEmail());
+        memberDTO.setMemberName(memberEntity.getMemberName());
+        memberDTO.setMemberAge(memberEntity.getMemberAge());
+        memberDTO.setMemberPhone(memberEntity.getMemberPhone());
+        return memberDTO
+;
+
+    }
 }
