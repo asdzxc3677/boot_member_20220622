@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
 <h2>회원목록 list.html</h2>
@@ -20,6 +20,8 @@
         <th>memberPhone</th>
         <th>상세조회</th>
         <th>상세조회</th>
+        <th>삭제</th>
+        <th>삭제(ajax)</th>
     </tr>
     <tr th:each="member:${memberList}">
         <td th:text="${member.id}"></td>
@@ -51,8 +53,8 @@
         $.ajax({
             type: "delete",
             url:"/member/"+id,
-            data: {"id": id},
-            success: function (result){  // status code = 200
+            // dataType: "text",
+            success: function (){  // status code = 200
                 location.href = "/member/";
             }, error:function (){
                 alert("ajax 실패");
@@ -60,12 +62,9 @@
         });
     }
     const detail = (id) =>{
-        console.log(id);
-        const detail = document.getElementById("detail");
         $.ajax({
             type:"post",
             url:"/member/ajax/" +id,
-            data: {"id": id},
             dataType:"json",
             success:function (result){
                 console.log(result);

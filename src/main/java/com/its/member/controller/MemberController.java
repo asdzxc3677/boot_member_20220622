@@ -20,10 +20,11 @@ public class MemberController {
 
     @GetMapping("/save-form") //회원가입 화면 요청
     public String saveForm(){
-        return "/memberPages/save";
+        return "memberPages/save";
     }
     @PostMapping("/save") //회원가입 처리
     public String save(@ModelAttribute MemberDTO memberDTO){
+        System.out.println("memberDTO = " + memberDTO);
         memberService.save(memberDTO);
         return "memberPages/login";
     }
@@ -35,9 +36,9 @@ public class MemberController {
     @PostMapping("/login") //로그인 처리
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session){
         MemberDTO loginResult = memberService.login(memberDTO);
-        session.setAttribute("loginEmail",loginResult.getMemberEmail());
-        session.setAttribute("id",loginResult.getId());
         if (loginResult != null){
+            session.setAttribute("loginEmail",loginResult.getMemberEmail());
+            session.setAttribute("id",loginResult.getId());
             return "memberPages/mypage";
         }else {
             return "memberPages/login";
@@ -95,13 +96,19 @@ public class MemberController {
     @PostMapping("update") //수정처리
     public String update(@ModelAttribute MemberDTO memberDTO){
         memberService.update(memberDTO);
-        return "redirect:/member" +memberDTO.getId();
+        return "redirect:/member/" +memberDTO.getId();
     }
 
     @PutMapping("/{id}") //수정처리(put 요청) json 형식에서 불러올때는 @requestBody put처리는 ajax로 이용한다
     public ResponseEntity updateByAjax(@RequestBody MemberDTO memberDTO){
         memberService.update(memberDTO);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/emailCheck") //이메일 중복체크
+    public @ResponseBody String emailCheck(@RequestParam String memberEmail){
+        String checkResult = memberService.emailCheck(memberEmail);
+        return checkResult;
     }
 
 }

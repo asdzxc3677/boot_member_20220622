@@ -74,4 +74,13 @@ public class MemberService {
     public void update(MemberDTO memberDTO) {
         memberRepository.save(MemberEntity.toUpdateEntity(memberDTO));
     }
+
+    public String emailCheck(String memberEmail) {
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberEmail(memberEmail);
+        if (optionalMemberEntity.isEmpty()){
+            return "ok";
+        }else {
+            return "no";
+        }
+    }
 }

@@ -28,7 +28,7 @@ public class MemberDTO {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setId(memberEntity.getId());
         memberDTO.setMemberEmail(memberDTO.getMemberEmail());
-        memberDTO.setMemberPassword(memberEntity.getMemberEmail());
+        memberDTO.setMemberPassword(memberEntity.getMemberPassword());
         memberDTO.setMemberName(memberEntity.getMemberName());
         memberDTO.setMemberAge(memberEntity.getMemberAge());
         memberDTO.setMemberPhone(memberEntity.getMemberPhone());
