@@ -33,12 +33,14 @@ public class MemberService {
         if (optionalMemberEntity.isPresent()) {
             MemberEntity loginEntity = optionalMemberEntity.get();
             if (loginEntity.getMemberPassword().equals(memberDTO.getMemberPassword())) {
-                return memberDTO;
+                return MemberDTO.toMemberDTO(loginEntity);
             } else {
                 return null;
             }
+        }else {
+            return null;
         }
-        return null;
+
     }
 
     public MemberDTO findById(Long id) {
@@ -62,5 +64,14 @@ public class MemberService {
             memberDTOList.add(MemberDTO.toMemberDTO(member)); // 한줄처리
         }
         return memberDTOList;
+    }
+
+
+    public void delete(Long id) {
+        memberRepository.deleteById(id);
+    }
+
+    public void update(MemberDTO memberDTO) {
+        memberRepository.save(MemberEntity.toUpdateEntity(memberDTO));
     }
 }
