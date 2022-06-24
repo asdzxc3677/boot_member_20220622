@@ -24,7 +24,7 @@ public class MemberController {
         return "memberPages/save";
     }
 
-    @GetMapping("/login-form")  //로그인 화면
+    @GetMapping("/login-form")  //로그인 화면  defaultValue = "/") <- 로그인 처리후 보고싶은 페이지의 주소를 줘야함
     public String loginForm(@RequestParam(value = "redirectURL", defaultValue = "/") String redirectURL,
                             Model model) {
         model.addAttribute("redirectURL", redirectURL);
@@ -37,7 +37,7 @@ public class MemberController {
         return "memberPages/login";
     }
 
-    @PostMapping("/login") //로그인 처리
+    @PostMapping("/login") //로그인 처리  defaultValue = "/") <- 로그인 처리후 보고싶은 페이지의 주소를 줘야함
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session,
                         @RequestParam(value = "redirectURL", defaultValue = "/") String redirectURL) {
         MemberDTO loginResult = memberService.login(memberDTO);
