@@ -10,7 +10,8 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     //리파스토리는(Repository 는) Entity DB작업할때 어떤 Entity 다룰꺼냐 어떠한 pk를 다룰것인지 정하는것
 
     // select * from member_table where memberEmail = ?
-    //리턴타입: MemberEntity
-    //매개변수: memberEmail(String)
+    // 리턴타입: MemberEntity
+    // 매개변수: memberEmail(String)
     Optional<MemberEntity> findByMemberEmail(String memberEmail);
+
 }
