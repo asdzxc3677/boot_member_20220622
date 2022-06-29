@@ -51,7 +51,7 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/")
+    @GetMapping("/") //회원목록
     public String findAll(Model model) {
         List<MemberDTO> memberDTOList = memberService.findAll();
         model.addAttribute("memberList", memberDTOList);
